@@ -31,9 +31,8 @@ do_restart() {
 if command -v inotifywait &>/dev/null; then
     echo "[watch] Using inotifywait (inotify-tools)"
     while true; do
-        # --polling for reliability on all filesystem types (incl. network/bind mounts)
         # close_write: file saved; moved_to: atomic save (editors like vim)
-        inotifywait --polling -r -e close_write,moved_to \
+        inotifywait -r -e close_write,moved_to \
             --include '\.py$' \
             "${WATCH_DIR}" &>/dev/null
         do_restart

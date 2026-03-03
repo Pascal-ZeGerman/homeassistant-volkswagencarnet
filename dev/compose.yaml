@@ -1,0 +1,46 @@
+# VW CarNet Home Assistant development environment
+#
+# Usage:
+#   Default (persistent config):
+#     cd dev && docker compose up
+#     Open http://localhost:8123 in your browser
+#
+#   Fresh (clean slate, no prior HA config):
+#     cd dev && docker compose --profile fresh up
+#     NOTE: Stop the default service first — both use port 8123
+
+services:
+  homeassistant:
+    image: ghcr.io/home-assistant/home-assistant:stable
+    container_name: ha-dev
+    entrypoint: ["/config/dev-entrypoint.sh"]
+    volumes:
+      - ../config:/config
+      - ../custom_components:/config/custom_components
+      - ./entrypoint.sh:/config/dev-entrypoint.sh:ro
+      - ../requirements.txt:/requirements.txt:ro
+    ports:
+      - "8123:8123"
+    environment:
+      TZ: America/New_York
+    restart: unless-stopped
+
+  homeassistant-fresh:
+    image: ghcr.io/home-assistant/home-assistant:stable
+    container_name: ha-dev-fresh
+    entrypoint: ["/config/dev-entrypoint.sh"]
+    profiles:
+      - fresh
+    volumes:
+      - ha-fresh-config:/config
+      - ../custom_components:/config/custom_components
+      - ./entrypoint.sh:/config/dev-entrypoint.sh:ro
+      - ../requirements.txt:/requirements.txt:ro
+    ports:
+      # NOTE: Stop default service first — port 8123 cannot be shared
+      - "8123:8123"
+    environment:
+      TZ: America/New_York
+
+volumes:
+  ha-fresh-config:

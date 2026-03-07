@@ -29,7 +29,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans:** 1/1 plans complete
 
 Plans:
-- [ ] 01-01-PLAN.md — Docker dev environment: compose, entrypoint, watcher, config
+- [x] 01-01-PLAN.md — Docker dev environment: compose, entrypoint, watcher, config
 
 ### Phase 2: NA Library Integration
 **Goal**: Users in North America can add the integration using a country picker that routes to the correct backend, while existing EU users continue working without reconfiguration
@@ -40,13 +40,11 @@ Plans:
   2. An NA VW account completes setup and exposes the same entity types (sensor, binary_sensor, lock, switch, climate, number, select, device_tracker) as an EU account
   3. An existing EU config entry upgrades to the new country-based format without requiring the user to reconfigure
   4. Scan interval and 480-calls/day rate limiting behavior works identically for both NA and EU vehicles
-**Plans**: TBD
+**Plans:** 2 plans
 
 Plans:
-- [ ] 02-01: Library swap — replace volkswagencarnet import with new drop-in library
-- [ ] 02-02: Country selector — config flow country picker wired to backend routing
-- [ ] 02-03: Migration — config entry upgrade from region code to country selector
-- [ ] 02-04: Documentation — installation and setup instructions for HA admin users
+- [ ] 02-01-PLAN.md — Library swap + country selector config flow (NAL-01, NAL-02, NAL-03, NAL-04, NAL-06)
+- [ ] 02-02-PLAN.md — Config entry migration, repairs flow, and documentation (NAL-05, NAL-07)
 
 ## Progress
 
@@ -56,4 +54,4 @@ Phases execute in numeric order: 1 → 2
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Dev Environment | 1/1 | Complete   | 2026-03-03 |
-| 2. NA Library Integration | 0/4 | Not started | - |
+| 2. NA Library Integration | 0/2 | Not started | - |

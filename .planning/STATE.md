@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Completed 02-na-library-integration 02-01-PLAN.md
-last_updated: "2026-03-07T15:53:26.931Z"
+stopped_at: Completed 02-na-library-integration 02-02-PLAN.md
+last_updated: "2026-03-07T15:57:26.300Z"
 last_activity: 2026-03-02 — Roadmap created
 progress:
   total_phases: 2
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 3
-  completed_plans: 2
+  completed_plans: 3
   percent: 100
 ---
 
@@ -52,6 +52,7 @@ Progress: [██████████] 100%
 *Updated after each plan completion*
 | Phase 01-dev-environment P01 | 2 | 2 tasks | 5 files |
 | Phase 02-na-library-integration P01 | 2min | 2 tasks | 7 files |
+| Phase 02-na-library-integration P02 | 2 | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -68,6 +69,8 @@ Recent decisions affecting current work:
 - [Phase 02-na-library-integration]: Track forked volkswagencarnet via git URL (not PyPI) targeting main branch until stable release
 - [Phase 02-na-library-integration]: vol.Required(CONF_COUNTRY) with no default - user must explicitly pick country, no silent default
 - [Phase 02-na-library-integration]: VERSION bumped 3->4 to trigger async_migrate_entry for existing config entries; CONF_REGION kept for migration fallback in Plan 02-02
+- [Phase 02-na-library-integration]: Inline import of issue_registry inside v3->v4 block avoids module-level dependency
+- [Phase 02-na-library-integration]: HA Repairs framework used for post-migration country confirmation - user must confirm before integration reconnects
 
 ### Pending Todos
 
@@ -79,6 +82,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-07T15:53:26.924Z
-Stopped at: Completed 02-na-library-integration 02-01-PLAN.md
+Last session: 2026-03-07T15:57:26.295Z
+Stopped at: Completed 02-na-library-integration 02-02-PLAN.md
 Resume file: None

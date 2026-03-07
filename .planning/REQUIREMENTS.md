@@ -18,9 +18,9 @@
 - [x] **NAL-02**: Config flow presents a country selector instead of the current region code field
 - [x] **NAL-03**: Country selection resolves to correct backend path (NA or EU) transparently
 - [x] **NAL-04**: All existing entity types (sensor, binary_sensor, lock, switch, climate, number, select, device_tracker) work with NA vehicles
-- [ ] **NAL-05**: Existing EU users are not broken — migration path from current config to new country selector (validated via code review and tests, no EU credentials available)
+- [x] **NAL-05**: Existing EU users are not broken — migration path from current config to new country selector (validated via code review and tests, no EU credentials available)
 - [x] **NAL-06**: API rate limiting behavior is preserved (scan interval, 480 calls/day awareness)
-- [ ] **NAL-07**: Clear installation and setup instructions for HA admin users (HACS install, manual install, config flow walkthrough)
+- [x] **NAL-07**: Clear installation and setup instructions for HA admin users (HACS install, manual install, config flow walkthrough)
 
 ## v2 Requirements
 
@@ -52,9 +52,9 @@
 | NAL-02 | Phase 2 - NA Library Integration | Complete |
 | NAL-03 | Phase 2 - NA Library Integration | Complete |
 | NAL-04 | Phase 2 - NA Library Integration | Complete |
-| NAL-05 | Phase 2 - NA Library Integration | Pending |
+| NAL-05 | Phase 2 - NA Library Integration | Complete |
 | NAL-06 | Phase 2 - NA Library Integration | Complete |
-| NAL-07 | Phase 2 - NA Library Integration | Pending |
+| NAL-07 | Phase 2 - NA Library Integration | Complete |
 
 **Coverage:**
 - v1 requirements: 11 total

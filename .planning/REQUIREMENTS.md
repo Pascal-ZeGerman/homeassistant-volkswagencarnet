@@ -14,12 +14,12 @@
 
 ### NA Library Integration
 
-- [ ] **NAL-01**: Integration uses new library (drop-in replacement) that supports both NA and EU regions
-- [ ] **NAL-02**: Config flow presents a country selector instead of the current region code field
-- [ ] **NAL-03**: Country selection resolves to correct backend path (NA or EU) transparently
-- [ ] **NAL-04**: All existing entity types (sensor, binary_sensor, lock, switch, climate, number, select, device_tracker) work with NA vehicles
+- [x] **NAL-01**: Integration uses new library (drop-in replacement) that supports both NA and EU regions
+- [x] **NAL-02**: Config flow presents a country selector instead of the current region code field
+- [x] **NAL-03**: Country selection resolves to correct backend path (NA or EU) transparently
+- [x] **NAL-04**: All existing entity types (sensor, binary_sensor, lock, switch, climate, number, select, device_tracker) work with NA vehicles
 - [ ] **NAL-05**: Existing EU users are not broken — migration path from current config to new country selector (validated via code review and tests, no EU credentials available)
-- [ ] **NAL-06**: API rate limiting behavior is preserved (scan interval, 480 calls/day awareness)
+- [x] **NAL-06**: API rate limiting behavior is preserved (scan interval, 480 calls/day awareness)
 - [ ] **NAL-07**: Clear installation and setup instructions for HA admin users (HACS install, manual install, config flow walkthrough)
 
 ## v2 Requirements
@@ -48,12 +48,12 @@
 | DEV-02 | Phase 1 - Dev Environment | Complete |
 | DEV-03 | Phase 1 - Dev Environment | Complete |
 | DEV-04 | Phase 1 - Dev Environment | Complete |
-| NAL-01 | Phase 2 - NA Library Integration | Pending |
-| NAL-02 | Phase 2 - NA Library Integration | Pending |
-| NAL-03 | Phase 2 - NA Library Integration | Pending |
-| NAL-04 | Phase 2 - NA Library Integration | Pending |
+| NAL-01 | Phase 2 - NA Library Integration | Complete |
+| NAL-02 | Phase 2 - NA Library Integration | Complete |
+| NAL-03 | Phase 2 - NA Library Integration | Complete |
+| NAL-04 | Phase 2 - NA Library Integration | Complete |
 | NAL-05 | Phase 2 - NA Library Integration | Pending |
-| NAL-06 | Phase 2 - NA Library Integration | Pending |
+| NAL-06 | Phase 2 - NA Library Integration | Complete |
 | NAL-07 | Phase 2 - NA Library Integration | Pending |
 
 **Coverage:**

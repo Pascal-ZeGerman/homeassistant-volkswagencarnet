@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Completed 01-dev-environment-01-01-PLAN.md
-last_updated: "2026-03-03T17:39:52.288Z"
+stopped_at: Completed 02-na-library-integration 02-01-PLAN.md
+last_updated: "2026-03-07T15:53:26.931Z"
 last_activity: 2026-03-02 — Roadmap created
 progress:
   total_phases: 2
   completed_phases: 1
-  total_plans: 1
-  completed_plans: 1
+  total_plans: 3
+  completed_plans: 2
   percent: 100
 ---
 
@@ -51,6 +51,7 @@ Progress: [██████████] 100%
 
 *Updated after each plan completion*
 | Phase 01-dev-environment P01 | 2 | 2 tasks | 5 files |
+| Phase 02-na-library-integration P01 | 2min | 2 tasks | 7 files |
 
 ## Accumulated Context
 
@@ -64,6 +65,9 @@ Recent decisions affecting current work:
 - Docker container (not devcontainer) — simple rebuild-and-test workflow, no IDE coupling (pending)
 - [Phase 01-dev-environment]: Use ghcr.io/home-assistant/home-assistant:stable with volume mounts and pip-install entrypoint for VW CarNet dev environment
 - [Phase 01-dev-environment]: Host-side inotifywait watcher with polling flag and 2s debounce for cross-filesystem reliable auto-restart
+- [Phase 02-na-library-integration]: Track forked volkswagencarnet via git URL (not PyPI) targeting main branch until stable release
+- [Phase 02-na-library-integration]: vol.Required(CONF_COUNTRY) with no default - user must explicitly pick country, no silent default
+- [Phase 02-na-library-integration]: VERSION bumped 3->4 to trigger async_migrate_entry for existing config entries; CONF_REGION kept for migration fallback in Plan 02-02
 
 ### Pending Todos
 
@@ -75,6 +79,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-03T17:39:52.283Z
-Stopped at: Completed 01-dev-environment-01-01-PLAN.md
+Last session: 2026-03-07T15:53:26.924Z
+Stopped at: Completed 02-na-library-integration 02-01-PLAN.md
 Resume file: None

@@ -147,7 +147,7 @@ async def async_migrate_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     # 1 -> 2: Move resources from data -> options
     if version == 1:
         default_convert_conf = get_convert_conf(entry)
-        version = entry.version = 2
+        version = 2
         options = dict(entry.options)
         data = dict(entry.data)
 
@@ -155,20 +155,20 @@ async def async_migrate_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         options[CONF_CONVERT] = options.get(CONF_CONVERT, default_convert_conf)
         data.pop(CONF_RESOURCES, None)
 
-        hass.config_entries.async_update_entry(entry, data=data, options=options)
+        hass.config_entries.async_update_entry(entry, data=data, options=options, version=2)
 
     # 2 -> 3: Fix empty "convert" option
     if version == 2:
-        version = entry.version = 3
+        version = 3
         options = dict(entry.options)
         options.pop(CONF_CONVERT, None)
         data = dict(entry.data)
 
-        hass.config_entries.async_update_entry(entry, data=data, options=options)
+        hass.config_entries.async_update_entry(entry, data=data, options=options, version=3)
 
     # 3 -> 4: Replace CONF_REGION free-text with CONF_COUNTRY dropdown
     if version == 3:
-        version = entry.version = 4
+        version = 4
         data = dict(entry.data)
         options = dict(entry.options)
 
@@ -182,7 +182,7 @@ async def async_migrate_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
             region_from_options = options.pop(CONF_REGION)
             options[CONF_COUNTRY] = region_from_options
 
-        hass.config_entries.async_update_entry(entry, data=data, options=options)
+        hass.config_entries.async_update_entry(entry, data=data, options=options, version=4)
 
         # Create repair so user must confirm their country before reconnecting
         from homeassistant.helpers import issue_registry as ir  # noqa: PLC0415

@@ -166,6 +166,43 @@ async def async_migrate_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
         hass.config_entries.async_update_entry(entry, data=data, options=options)
 
+    # 3 -> 4: Replace CONF_REGION free-text with CONF_COUNTRY dropdown
+    if version == 3:
+        version = entry.version = 4
+        data = dict(entry.data)
+        options = dict(entry.options)
+
+        # Move CONF_REGION value to CONF_COUNTRY in data
+        existing_region = data.pop(CONF_REGION, DEFAULT_COUNTRY)
+        data[CONF_COUNTRY] = existing_region
+
+        # Also clean CONF_REGION from options and add CONF_COUNTRY if it was there
+        # (both data and options are separate dicts, both need updating)
+        if CONF_REGION in options:
+            region_from_options = options.pop(CONF_REGION)
+            options[CONF_COUNTRY] = region_from_options
+
+        hass.config_entries.async_update_entry(entry, data=data, options=options)
+
+        # Create repair so user must confirm their country before reconnecting
+        from homeassistant.helpers import issue_registry as ir  # noqa: PLC0415
+
+        ir.async_create_issue(
+            hass,
+            DOMAIN,
+            f"confirm_country_{entry.entry_id}",
+            is_fixable=True,
+            severity=ir.IssueSeverity.WARNING,
+            translation_key="confirm_country",
+            data={"entry_id": entry.entry_id, "country": existing_region},
+        )
+
+        _LOGGER.warning(
+            "Migrated config entry %s from v3 to v4. "
+            "Please confirm your country in Home Assistant Repairs.",
+            entry.entry_id,
+        )
+
     _LOGGER.info("Migration to config version %s successful", version)
     return True
 

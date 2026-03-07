@@ -46,6 +46,7 @@ from .const import (
     COMPONENTS,
     CONF_AVAILABLE_RESOURCES,
     CONF_CONVERT,
+    CONF_COUNTRY,
     CONF_IMPERIAL_UNITS,
     CONF_MUTABLE,
     CONF_NO_CONVERSION,
@@ -54,6 +55,7 @@ from .const import (
     CONF_SPIN,
     CONF_VEHICLE,
     DATA,
+    DEFAULT_COUNTRY,
     DEFAULT_UPDATE_INTERVAL,
     DOMAIN,
     SIGNAL_STATE_UPDATED,
@@ -549,7 +551,7 @@ class VolkswagenCoordinator(DataUpdateCoordinator):
             session=async_get_clientsession(hass),
             username=self.entry.data[CONF_USERNAME],
             password=self.entry.data[CONF_PASSWORD],
-            country=self.entry.options.get(CONF_REGION, self.entry.data[CONF_REGION]),
+            country=self.entry.data.get(CONF_COUNTRY, self.entry.data.get(CONF_REGION, DEFAULT_COUNTRY)),
         )
 
         super().__init__(hass, _LOGGER, name=DOMAIN, update_interval=update_interval)

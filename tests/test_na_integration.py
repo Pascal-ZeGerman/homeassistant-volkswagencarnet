@@ -592,22 +592,12 @@ async def _run_migration(hass: HomeAssistant, entry):
         return await async_migrate_entry(hass, entry)
 
 
-@pytest.mark.xfail(
-    reason=(
-        "ESCALATE IMPL-BUG-01: async_migrate_entry uses the forbidden direct "
-        "`entry.version = N` assignment pattern. HA >= 2026.x enforces that version "
-        "can only be changed via async_update_entry(entry, version=N). "
-        "Fix: use hass.config_entries.async_update_entry(entry, version=4, data=data, options=options) "
-        "and remove the `entry.version = 4` direct assignment in __init__.py."
-    ),
-    raises=AttributeError,
-    strict=True,
-)
-async def test_nal05_migration_version_assignment_raises(hass: HomeAssistant):
-    """ESCALATE IMPL-BUG-01: direct entry.version assignment raises AttributeError in HA >= 2026.x.
+async def test_nal05_migration_no_version_assignment_error(hass: HomeAssistant):
+    """Verify IMPL-BUG-01 is fixed: async_migrate_entry no longer raises AttributeError.
 
-    This test documents the regression without the __setattr__ workaround patch.
-    It is expected to xfail until the implementation is fixed.
+    The fix replaced direct `entry.version = N` assignments with version=N kwarg
+    on async_update_entry(), which is the only supported way to change version in
+    HA >= 2026.x. This test confirms migration completes without error.
     """
     from custom_components.volkswagencarnet import async_migrate_entry
 
@@ -623,7 +613,7 @@ async def test_nal05_migration_version_assignment_raises(hass: HomeAssistant):
     )
     with patch("homeassistant.config_entries.ConfigEntries._async_schedule_save"):
         entry.add_to_hass(hass)
-        # Without the __setattr__ workaround, this raises AttributeError
+        # With the fix, this completes without raising AttributeError
         await async_migrate_entry(hass, entry)
 
 

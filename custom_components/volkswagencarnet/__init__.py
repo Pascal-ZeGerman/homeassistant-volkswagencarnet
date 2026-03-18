@@ -28,6 +28,7 @@ from homeassistant.helpers.update_coordinator import (
 
 # pylint: disable=no-name-in-module,hass-relative-import
 from volkswagencarnet.vw_connection import Connection
+from volkswagencarnet.vw_exceptions import AuthenticationError, VWError
 from volkswagencarnet.vw_dashboard import (
     BinarySensor,
     DoorLock,
@@ -589,6 +590,7 @@ class VolkswagenCoordinator(DataUpdateCoordinator):
             username=self.entry.data[CONF_USERNAME],
             password=self.entry.data[CONF_PASSWORD],
             country=self.entry.data.get(CONF_COUNTRY, self.entry.data.get(CONF_REGION, DEFAULT_COUNTRY)),
+            spin=self.entry.data.get(CONF_SPIN),
         )
 
         super().__init__(hass, _LOGGER, name=DOMAIN, update_interval=update_interval)
@@ -645,8 +647,11 @@ class VolkswagenCoordinator(DataUpdateCoordinator):
             if self.connection.logged_in:
                 await self.connection.logout()
                 _LOGGER.debug("Successfully logged out")
+        except VWError as err:
+            _LOGGER.error("Could not log out from Volkswagen Connect (library error): %s", err)
+            return False
         except Exception as err:  # pylint: disable=broad-exception-caught
-            _LOGGER.error("Could not log out from Volkswagen Connect: %s", err)
+            _LOGGER.error("Could not log out from Volkswagen Connect (unexpected error): %s", err)
             return False
 
         return True
@@ -659,8 +664,14 @@ class VolkswagenCoordinator(DataUpdateCoordinator):
 
         try:
             await self.connection.doLogin(3)
+        except AuthenticationError as err:
+            _LOGGER.error("Authentication failed: %s", err)
+            return False
+        except VWError as err:
+            _LOGGER.error("Login failed (library error): %s", err)
+            return False
         except Exception as err:  # pylint: disable=broad-exception-caught
-            _LOGGER.error("Login failed: %s", err)
+            _LOGGER.error("Login failed (unexpected error): %s", err)
             return False
 
         if not self.connection.logged_in:
@@ -694,6 +705,9 @@ class VolkswagenCoordinator(DataUpdateCoordinator):
 
             _LOGGER.debug("Updated data for VIN %s", self.vin)
             return self.vehicle
+        except VWError as err:
+            _LOGGER.error("VW API error during update for VIN %s: %s", self.vin, err)
+            return None
         except Exception as err:  # pylint: disable=broad-exception-caught
-            _LOGGER.error("Error during update for VIN %s: %s", self.vin, err)
+            _LOGGER.error("Unexpected error during update for VIN %s: %s", self.vin, err)
             return None

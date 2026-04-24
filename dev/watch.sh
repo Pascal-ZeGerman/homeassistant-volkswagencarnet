@@ -34,7 +34,7 @@ if command -v inotifywait &>/dev/null; then
         # close_write: file saved; moved_to: atomic save (editors like vim)
         inotifywait -r -e close_write,moved_to \
             --include '\.py$' \
-            "${WATCH_DIR}" &>/dev/null
+            "${WATCH_DIR}" >/dev/null
         do_restart
     done
 else

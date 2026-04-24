@@ -40,7 +40,7 @@ services:
       - ./entrypoint.sh:/config/dev-entrypoint.sh:ro
       - ../requirements.txt:/requirements.txt:ro
     ports:
-      # NOTE: Stop default service first — port 8123 cannot be shared
+      # NOTE: Stop default service first — port 9123 cannot be shared
       - "9123:8123"
     dns:
       - 8.8.8.8

@@ -8,7 +8,7 @@
 
 
 
-# Volkswagen Connect - An Home Assistant custom component to interact with the VW Connect service. (EU ONLY)
+# Volkswagen Connect - An Home Assistant custom component to interact with the VW Connect service. (EU & US ONLY)
 
 ## Support the Project
 
@@ -26,7 +26,7 @@ This component supports **Volkswagen Connect vehicles** such as the Passat, Golf
 
 Most of the features available in the official "Volkswagen Connect" app are accessible through this integration.
 
-> **Note:** So far, this component has only been reported to work successfully with cars sold in the **EU**. Contributions to support vehicles outside the EU, such as in the US, are welcome. Currently, we do not have access to non-EU VW Connect accounts to verify functionality.
+> **Note:** So far, this component has only been reported to work successfully with cars sold in the **EU** & **US**. Contributions to support vehicles outside the EU are welcome.
 
 ## Installation
 

@@ -8,7 +8,7 @@
 
 
 
-# Volkswagen Connect - An Home Assistant custom component to interact with the VW Connect service. (EU ONLY)
+# Volkswagen Connect - An Home Assistant custom component to interact with the VW Connect service. (EU & US ONLY)
 
 ## Support the Project
 

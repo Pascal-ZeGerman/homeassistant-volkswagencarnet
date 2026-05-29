@@ -1,36 +1,51 @@
 name: Release
 
 on:
-  release:
-    #types: [prereleased,published]
-    types: [published]
+  push:
+    tags:
+      - "v*"
 
 jobs:
-  release_zip_file:
-    name: Prepare release asset
+  release:
+    name: Build and publish release
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Check out repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+        with:
+          fetch-depth: 0
 
-      - name: Get version
-        id: version
-        uses: home-assistant/actions/helpers/version@master
-
-      - name: "Update manifest.json"
+      - name: Detect pre-release
+        id: prerelease
         run: |
-          python3 ${{ github.workspace }}/manage/update_manifest.py --version ${{ steps.version.outputs.version }}
+          TAG="${GITHUB_REF_NAME}"
+          if echo "$TAG" | grep -qE '\-(rc|alpha|beta)\.?[0-9]+$'; then
+            echo "is_prerelease=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "is_prerelease=false" >> "$GITHUB_OUTPUT"
+          fi
+        env:
+          GITHUB_REF_NAME: ${{ github.ref_name }}
+
+      - name: Update manifest.json
+        env:
+          VERSION: ${{ github.ref_name }}
+        run: |
+          python3 manage/update_manifest.py --version "$VERSION"
 
       - name: Create zip
         run: |
           cd custom_components/volkswagencarnet
           zip volkswagencarnet.zip -r ./
 
-      - name: Upload zip to release
-        uses: svenstaro/upload-release-action@2.11.3
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@3bb12739c298aeb8a4eeaf626c5b8d85266b0e65 # v2.6.2
         with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ./custom_components/volkswagencarnet/volkswagencarnet.zip
-          asset_name: volkswagencarnet.zip
-          tag: ${{ github.ref }}
-          overwrite: true
+          generate_release_notes: true
+          draft: false
+          prerelease: ${{ steps.prerelease.outputs.is_prerelease }}
+          name: ${{ github.ref_name }}
+          tag_name: ${{ github.ref_name }}
+          files: ./custom_components/volkswagencarnet/volkswagencarnet.zip
